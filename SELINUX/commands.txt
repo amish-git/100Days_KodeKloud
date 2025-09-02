@@ -1,0 +1,85 @@
+SELinux provides a more secure way to run Linux servers. 
+Key commands for status, file management and troubleshooting can help you run SELinux smoothly on your infrastructure.
+
+
+
+#Cureent status of SELinux
+==> sestatus
+
+# Another way of viewing the status of SELinux is to issue the getenforce command.
+==> getenforce
+
+To set the SELinux status to disabled, you'd issue the command:
+==> sudo setenforce disabled
+
+To set the status to permissive, the command would be:
+==> sudo setenforce permissive
+
+Finally, to set the status to enforcing, the command would be:
+==> sudo setenforce enforcing
+
+If you set the SELinux status to disable, 
+the only way to enable it again is to open configuration file /etc/selinux/config
+and manually change the status to either permissive or enforcing
+
+==> SELINUX=disabled/enforcing/permissive
+
+Some important information about SELINUX: <src from TechTarget>
+
+On production machines, you should set SELinux to enforcing mode. When you disable SELinux, you're disabling a major security control on your system.
+
+But when you have SELinux enabled, there might be problems when an application doesn't have the necessary access to a file so that the application in question can run.
+
+Let's say you have a web server but decide to serve up the content from a directory outside of the usual /var/www. You can configure Apache or Nginx to support this data transfer, but SELinux might not allow your server access to the files within that non-standard directory.
+
+For example, the directory you might choose to use is /srv/www. The problem is, SELinux doesn't know about this alternate directory, so it won't allow permissions. To instruct SELinux to allow access to the /srv/www directory, you must apply a new context to the corresponding SELinux command. You can use the semanage command like so:
+
+==> sudo semanage fcontext -a -t httpd_sys_content_t '/srv/www(/.*)?'
+
+The above command adds a new file context (using the -a option) of the type httpd_sys_content_t within the /srv/www/ directory.
+
+You must then use the restorecon to relabel and set the appropriate context on the directory. This command sets default contexts on files and directories, according to SELinux policy.
+
+To use the restorecon on /srv/www, issue the command:
+
+==> sudo restorecon -Rv /srv/www
+
+Once you've taken care of this, Apache can then serve up content from the /srv/www directory, because the web server has the right to read httpd_sys_content_t files and /srv/www/ has been correctly labeled.
+
+# Check for any SELinux file problems
+SELinux includes a handy prompt to help you check for issues. That tool is fixfiles, which you can use to reset application file contexts. The fixfiles command has three options:
+
+check: Shows any file-related objects with a mismatched security context
+restore: Relabels any file-related objects with a mismatched security context
+relabel: Similar to restore but can optionally remove files in the /tmp directory before running the check and restore
+
+To run a check on your system, issue the sudo fixfiles check command.
+
+This SELinux command prints out quite a lot of information. Within that information, look for Would relabel statements and other warnings. Should you see any relabel statements or other warnings, you can fix those with the sudo fixfiles restore command.
+
+Depending on how many issues fixfiles finds, this process could take some time. Allow the command to complete and, once it's done, rerun the sudo fixfiles command; any warnings should be gone.
+
+# Other useful SELinux commands
+
+chcon: labels file(s) with a specified security context
+
+checkpolicy: compiles policy sources into a binary policy file. Generally, it is not called directly, but a policy’s makefile invokes the command.
+
+newrole: switches admin roles. It is often issued as newrole -r sysadm_r to transition to the sysadm_r role for system administration tasks.
+
+getsebool: displays SELinux boolean conditions
+
+setsebool: sets SElinux boolean conditions
+
+
+# This file controls the state of SELinux on the system.
+# SELINUX= can take one of these three values:
+#     enforcing - SELinux security policy is enforced.
+#     permissive - SELinux prints warnings instead of enforcing policies.
+#     disabled - No SELinux policy is loaded/disabled.
+SELINUX=disabled                                                --CHANGED ENFORCING TO DISABLE
+# SELINUXTYPE= can take one of these two values:
+#     targeted - Targeted processes are protected,
+#     minimum - Modification of targeted policy. Only selected processes are protected. 
+#     mls - Multi Level Security protection.
+SELINUXTYPE=targeted
