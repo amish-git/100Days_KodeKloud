@@ -1,0 +1,5 @@
+List the cron jobs:
+==> crontab -l
+
+Add/Edit the cron job:
+==> crontab -e
