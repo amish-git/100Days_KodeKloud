@@ -1,0 +1,22 @@
+# Install Iptables and enable the service 
+
+sudo yum install iptables-services -y 
+sudo systemctl enable iptables      
+sudo systemctl start iptables 
+sudo systemctl status iptables
+sudo iptables -nvL 
+
+IPTABLES RULES
+-------------------------------------------------------------------------------------------------------------------------
+first  check for accept rule, which will allow incoming connection on the particular port from the LBR host and 
+then reject incoming connections coming to that port.
+
+sudo iptables -R INPUT 5 -p tcp --dport 5000 -s 172.16.238.14 -j ACCEPT   
+sudo iptables -A INPUT -p tcp --dport 5000 -j DROP
+sudo service iptables save
+
+-----------------------------------------------------------------------------------------------------------------------
+Checking connectivity
+curl 172.16.238.10:5002
+curl 172.16.238.11:5002
+curl 172.16.238.12:5002
