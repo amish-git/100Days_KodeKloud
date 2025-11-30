@@ -9,13 +9,20 @@ Further, add/commit this file in the new branch and merge back that branch into 
 
 # SOLUTION
 
-### Create a new branch nautilus and switch to it.
+First, ensure you're on the master branch
+```bash
+git branch
+# or
+git checkout master
+``
+
+Create a new branch nautilus and switch to it.
 ```bash
 sudo git checkout -b nautilus
 ```
 
 ```bash
-cd **/usr/src/kodekloudrepos/beta**  
+cd /usr/src/kodekloudrepos/beta  
 cp /tmp/index.html .
 ```
 
