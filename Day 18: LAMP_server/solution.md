@@ -55,7 +55,7 @@ MariaDB [(none)]> show databases;
 +--------------------+
 4 rows in set (0.001 sec)
 ##Mysql
-create user 'kodekloud_gem'@'%' IDENTIFIED BY 'B4zNgHA7Ya'
+create user 'kodekloud_gem'@'%' IDENTIFIED BY '******'
 
 grant all privileges on kodekloud_db10 TO 'kodekloud_gem'@'%';
 

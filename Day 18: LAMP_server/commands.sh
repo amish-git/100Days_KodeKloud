@@ -9,7 +9,7 @@ sudo systemctl start mariadb
 create database kodekloud_db10;
 show databases;
 
-create user 'kodekloud_gem'@'%' IDENTIFIED BY 'B4zNgHA7Ya';
+create user 'kodekloud_gem'@'%' IDENTIFIED BY '********';
 grant all privileges on kodekloud_db10 TO 'kodekloud_gem'@'%';
 
 show grants for 'kodekloud_gem'@'%';
