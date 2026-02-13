@@ -5,7 +5,7 @@ The Nautilus application development team has shared that they are planning to d
 PostgreSQL database server is already installed on the Nautilus database server.
 
 
-a. Create a database user kodekloud_sam and set its password to GyQkFRVNr3.
+a. Create a database user kodekloud_sam and set its password to ********.
 
 ```bash
 [peter@stdb01 ~]$ sudo -u postgres psql
@@ -21,7 +21,7 @@ postgres=#  \du
 -----------+------------------------------------------------------------+-----------
  postgres  | Superuser, Create role, Create DB, Replication, Bypass RLS | {}
 
-postgres=# CREATE USER kodekloud_sam WITH PASSWORD 'GyQkFRVNr3';
+postgres=# CREATE USER kodekloud_sam WITH PASSWORD '********';
 CREATE ROLE
 postgres=# \du
                                      List of roles Role name   |                         Attributes                         | Member of 
