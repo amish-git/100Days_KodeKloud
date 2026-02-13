@@ -15,13 +15,6 @@ ssh steve@stapp02
 # Update the system
 sudo yum update -y
 
-# Add Docker repository
-#Install the dnf-plugins-core package (which provides the commands to manage your DNF repositories) and set up the repository
-
-sudo dnf -y install dnf-plugins-core
-sudo dnf config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
-
-
 # Install Docker CE and docker compose plugin
 sudo dnf install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
@@ -55,4 +48,4 @@ Add your user to the docker group.
 #### Install Docker Compose
 
 If you want to manually install it
-()[https://docs.docker.com/compose/install/linux/#install-using-the-repository]
+[docker compose](https://docs.docker.com/compose/install/linux/#install-using-the-repository)
