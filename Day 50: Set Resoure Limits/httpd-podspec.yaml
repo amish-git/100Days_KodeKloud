@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: httpd-pod
+spec:
+  containers:
+  - name: httpd-container
+    image: httpd:latest
+    resources:
+      requests:
+        memory: "15Mi" # Minimum memory required
+        cpu: "100m" # Minimum CPU required
+      limits:
+        memory: "20Mi" # Maximum memory allowed
+        cpu: "100m" # Maximum CPU allowed
